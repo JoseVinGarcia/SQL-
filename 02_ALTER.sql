@@ -1,12 +1,12 @@
 # Fazendo modificações no banco
 
-# Alterando o nome de produto para Produtos
-ALTER TABLE produto
-RENAME TO produtos;
+# Alterando o nome de Produtos para Produto
+ALTER TABLE produtos
+RENAME TO produto;
 
 # Criando a coluna MARCA com um valor padrão na tabela Produtos
 ALTER TABLE produtos
-ADD MARCA VARCHAR(50) DEFAULT "n/a";
+ADD MARCA VARCHAR(50) DEFAULT 'n/a';
 
 # Modificando tipo de dado em Marca
 ALTER TABLE produtos

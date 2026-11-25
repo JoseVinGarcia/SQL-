@@ -1,5 +1,7 @@
 # Criando banco
-CREATE DATABASE Mercado;
+DROP DATABASE IF EXISTS Mercado;
+
+CREATE DATABASE Mercado CHARACTER SET utf8mb4;
 
 USE Mercado;
 
@@ -29,7 +31,7 @@ INSERT INTO `grupo` VALUES (1,'ACOUGUE'),(2,'PADARIA'),(3,'BEBIBAS'),(4,'HIGIENE
 
 UNLOCK TABLES;
 
-CREATE TABLE IF NOT EXISTS `produto` (
+CREATE TABLE IF NOT EXISTS `produtos` (
   `codigo` int NOT NULL AUTO_INCREMENT,
   `descricao` varchar(45) DEFAULT NULL,
   `custo` decimal(9,2) DEFAULT NULL,
@@ -40,9 +42,9 @@ CREATE TABLE IF NOT EXISTS `produto` (
   CONSTRAINT `fk_produto_1` FOREIGN KEY (`cod_grupo`) REFERENCES `grupo` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-LOCK TABLES `produto` WRITE;
+LOCK TABLES `produtos` WRITE;
 
-INSERT INTO `produto` VALUES (1,'PAO',3.20,2.000,2),(2,'PICANHA',38.00,0.000,1),(3,'CERVEJA',5.80,0.000,3),(4,'REFRIGERANTE',3.90,2.000,3),(5,'COSTELA',13.00,0.000,1),(6,'LASANHA CONGELADA',16.00,0.000,NULL),(7,'BACALHAU',58.00,0.000,NULL),(8,'DESODORANTE',13.00,0.000,4),(9,'BOLO DE FUBA',5.00,0.000,2);
+INSERT INTO `produtos` VALUES (1,'PAO',3.20,2.000,2),(2,'PICANHA',38.00,0.000,1),(3,'CERVEJA',5.80,0.000,3),(4,'REFRIGERANTE',3.90,2.000,3),(5,'COSTELA',13.00,0.000,1),(6,'LASANHA CONGELADA',16.00,0.000,NULL),(7,'BACALHAU',58.00,0.000,NULL),(8,'DESODORANTE',13.00,0.000,4),(9,'BOLO DE FUBA',5.00,0.000,2);
 
 UNLOCK TABLES;
 
@@ -72,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `pedido_item` (
   PRIMARY KEY (`id_item`,`nro_pedido`),
   KEY `pedido_item_ibfk_1` (`nro_pedido`),
   CONSTRAINT `pedido_item_ibfk_1` FOREIGN KEY (`nro_pedido`) REFERENCES `pedido` (`numero_pedido`),
-  CONSTRAINT `fk_item_produto` FOREIGN KEY (`codigo_produto`) REFERENCES `produto` (`codigo`)
+  CONSTRAINT `fk_item_produto` FOREIGN KEY (`codigo_produto`) REFERENCES `produtos` (`codigo`)
 );
 
 LOCK TABLES `pedido_item` WRITE;

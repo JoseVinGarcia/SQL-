@@ -9,12 +9,22 @@ Uma prova de que um banco pode ser criado com comandos simples e consultas efici
 ## Caso de Uso
 
 Para esse banco, fiz uma simulação simples: Um mercado quer um banco de dados para cadastrar seus produtos do zero.
-O banco inicialmente terá 4 tabelas: Categorias, Clientes, Pedidos e Produtos.
+O banco inicialmente terá 6 tabelas: Cliente, Grupo, Pedido, Pedido_Item, Pedido_Pagamento e Produtos.
+
+| Cliente          | Informações a respeito dos Clientes            |
+|------------------|------------------------------------------------|
+| Grupo            | As categorias de item dentro do mercado        |
+| Pedido           | O registro inicial dos pedidos                 |
+| Pedido_Item      | O registro dos itens de cada pedido            |
+| Pedido_Pagamento | O registro do tipo de pagamento de cada pedido |
+| Produtos         | Os produtos cadastrados                        |
+
+Você vai notar que os pedidos são registrados em 3 tabelas diferentes, isso é feito para evitar redundância.
 
 ## Afazeres
 
 - [X] Comandos de criação
-- [X] Comandos de alteração
+- [ ] Comandos de alteração
 - [ ] Comandos de Consulta
 - [ ] Comandos de Backup
 - [ ] Comandos de remoção
