@@ -1,5 +1,4 @@
 # SQL!
-![VS Code](https://jsdelivr.net)
 
 Um estudo simples de SQL, feito e testado no **MySQL Workbench**.
 
@@ -16,7 +15,7 @@ O banco inicialmente terá 4 tabelas: Categorias, Clientes, Pedidos e Produtos.
 
 - [X] Comandos de criação
 - [X] Comandos de alteração
-- [] Comandos de Consulta
-- [] Comandos de Backup
-- [] Comandos de remoção
+- [ ] Comandos de Consulta
+- [ ] Comandos de Backup
+- [ ] Comandos de remoção
 

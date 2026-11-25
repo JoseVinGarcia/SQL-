@@ -4,9 +4,7 @@ CREATE DATABASE Mercado;
 USE Mercado;
 
 # Criando tabelas
-DROP TABLE IF EXISTS `cliente`;
-
-CREATE TABLE `cliente` (
+CREATE TABLE IF NOT EXISTS `cliente` (
   `codigo` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   `telefone` decimal(15,0) DEFAULT NULL,
@@ -19,9 +17,7 @@ INSERT INTO `cliente` VALUES (1,'DANIEL ',123),(2,'JOSE',321),(3,'JOAO',222),(4,
 
 UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `grupo`;
-
-CREATE TABLE `grupo` (
+CREATE TABLE IF NOT EXISTS `grupo` (
   `codigo` int NOT NULL AUTO_INCREMENT,
   `descricao` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`codigo`)
@@ -33,9 +29,24 @@ INSERT INTO `grupo` VALUES (1,'ACOUGUE'),(2,'PADARIA'),(3,'BEBIBAS'),(4,'HIGIENE
 
 UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `pedido`;
+CREATE TABLE IF NOT EXISTS `produto` (
+  `codigo` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(45) DEFAULT NULL,
+  `custo` decimal(9,2) DEFAULT NULL,
+  `estoque_atual` decimal(9,3) DEFAULT NULL,
+  `cod_grupo` int DEFAULT NULL,
+  PRIMARY KEY (`codigo`),
+  KEY `fk_produto_1_idx` (`cod_grupo`),
+  CONSTRAINT `fk_produto_1` FOREIGN KEY (`cod_grupo`) REFERENCES `grupo` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
-CREATE TABLE `pedido` (
+LOCK TABLES `produto` WRITE;
+
+INSERT INTO `produto` VALUES (1,'PAO',3.20,2.000,2),(2,'PICANHA',38.00,0.000,1),(3,'CERVEJA',5.80,0.000,3),(4,'REFRIGERANTE',3.90,2.000,3),(5,'COSTELA',13.00,0.000,1),(6,'LASANHA CONGELADA',16.00,0.000,NULL),(7,'BACALHAU',58.00,0.000,NULL),(8,'DESODORANTE',13.00,0.000,4),(9,'BOLO DE FUBA',5.00,0.000,2);
+
+UNLOCK TABLES;
+
+CREATE TABLE IF NOT EXISTS `pedido` (
   `numero_pedido` int NOT NULL AUTO_INCREMENT,
   `data_emissao` date DEFAULT NULL,
   `hora_emissao` time DEFAULT NULL,
@@ -51,9 +62,7 @@ INSERT INTO `pedido` VALUES (1,'2019-01-01','09:01:00',1),(2,'2019-01-02','09:11
 
 UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `pedido_item`;
-
-CREATE TABLE `pedido_item` (
+CREATE TABLE IF NOT EXISTS `pedido_item` (
   `id_item` int NOT NULL AUTO_INCREMENT,
   `nro_pedido` int NOT NULL,
   `codigo_produto` int DEFAULT NULL,
@@ -62,7 +71,8 @@ CREATE TABLE `pedido_item` (
   `cancelado` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id_item`,`nro_pedido`),
   KEY `pedido_item_ibfk_1` (`nro_pedido`),
-  CONSTRAINT `pedido_item_ibfk_1` FOREIGN KEY (`nro_pedido`) REFERENCES `pedido` (`numero_pedido`)
+  CONSTRAINT `pedido_item_ibfk_1` FOREIGN KEY (`nro_pedido`) REFERENCES `pedido` (`numero_pedido`),
+  CONSTRAINT `fk_item_produto` FOREIGN KEY (`codigo_produto`) REFERENCES `produto` (`codigo`)
 );
 
 LOCK TABLES `pedido_item` WRITE;
@@ -71,9 +81,7 @@ INSERT INTO `pedido_item` VALUES (1,1,3,2.000,11.60,'N'),(2,1,4,1.000,3.90,'N'),
 
 UNLOCK TABLES;
 
-DROP TABLE IF EXISTS `pedido_pagamento`;
-
-CREATE TABLE `pedido_pagamento` (
+CREATE TABLE IF NOT EXISTS `pedido_pagamento` (
   `id_pgto` int NOT NULL AUTO_INCREMENT,
   `nro_pedido` int NOT NULL,
   `Tipo` varchar(10) DEFAULT NULL,
@@ -86,24 +94,5 @@ CREATE TABLE `pedido_pagamento` (
 LOCK TABLES `pedido_pagamento` WRITE;
 
 INSERT INTO `pedido_pagamento` VALUES (1,1,'DINHEIRO',73.50),(2,2,'DINHEIRO',140.50),(3,3,'CHEQUE',119.90),(4,4,'CREDITO',10.30),(5,4,'DEBITO',10.30),(6,5,'DEBITO',44.40),(7,6,'CHEQUE',114.00),(8,7,'DINHEIRO',3.20),(9,8,'CREDITO',38.00),(10,9,'DEBITO',162.80),(11,10,'DINHEIRO',45.80),(12,11,'DEBITO',39.00),(13,12,'CREDITO',116.00),(14,13,'CREDIARIO',38.00),(15,14,'DEBITO',7.80),(16,15,'CREDIARIO',39.00),(17,16,'DEBITO',116.00);
-
-UNLOCK TABLES;
-
-DROP TABLE IF EXISTS `produto`;
-
-CREATE TABLE `produto` (
-  `codigo` int NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(45) DEFAULT NULL,
-  `custo` decimal(9,2) DEFAULT NULL,
-  `estoque_atual` decimal(9,3) DEFAULT NULL,
-  `cod_grupo` int DEFAULT NULL,
-  PRIMARY KEY (`codigo`),
-  KEY `fk_produto_1_idx` (`cod_grupo`),
-  CONSTRAINT `fk_produto_1` FOREIGN KEY (`cod_grupo`) REFERENCES `grupo` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-);
-
-LOCK TABLES `produto` WRITE;
-
-INSERT INTO `produto` VALUES (1,'PAO',3.20,2.000,2),(2,'PICANHA',38.00,0.000,1),(3,'CERVEJA',5.80,0.000,3),(4,'REFRIGERANTE',3.90,2.000,3),(5,'COSTELA',13.00,0.000,1),(6,'LASANHA CONGELADA',16.00,0.000,NULL),(7,'BACALHAU',58.00,0.000,NULL),(8,'DESODORANTE',13.00,0.000,4),(9,'BOLO DE FUBA',5.00,0.000,2);
 
 UNLOCK TABLES;
