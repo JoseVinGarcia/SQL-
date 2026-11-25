@@ -1,9 +1,9 @@
-# Creating Database
+# Criando banco
 CREATE DATABASE Mercado;
 
 USE Mercado;
 
-# Creating Tables
+# Criando tabelas
 DROP TABLE IF EXISTS `cliente`;
 
 CREATE TABLE `cliente` (
