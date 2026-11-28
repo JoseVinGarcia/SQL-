@@ -33,6 +33,6 @@ Rode os seguintes arquivos .sql em ordem:
 
 - [X] Comandos de criação
 - [X] Comandos de alteração
-- [ ] Comandos de Consulta
-- [ ] Comandos de Backup
-- [ ] Comandos de remoção
+- [X] Comandos de Consulta
+- [X] Comandos de Backup
+- [X] Comandos de remoção

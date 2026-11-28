@@ -32,7 +32,7 @@ CREATE TABLE `produtos` (
   `cod_grupo` int DEFAULT NULL,
   PRIMARY KEY (`codigo`),
   KEY `fk_produto_1_idx` (`cod_grupo`),
-  CONSTRAINT `fk_produto_1` FOREIGN KEY (`cod_grupo`) REFERENCES `grupo` (`codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_produto_1` FOREIGN KEY (`cod_grupo`) REFERENCES `grupo` (`codigo`)
 );
 
 INSERT INTO `produtos` VALUES (1,'PAO',3.20,2.000,2),(2,'PICANHA',38.00,3.000,1),(3,'CERVEJA',5.80,4.000,3),(4,'REFRIGERANTE',3.90,2.000,3),(5,'COSTELA',13.00,12.000,1),(6,'LASANHA CONGELADA',16.00,12.000,NULL),(7,'BACALHAU',58.00,8.000,NULL),(8,'DESODORANTE',13.00,100.000,4),(9,'BOLO DE FUBA',5.00,90.000,2);
